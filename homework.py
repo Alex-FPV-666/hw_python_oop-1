@@ -102,16 +102,16 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
 
-    SWM_COEFF_1: float = 1.1
-    SWM_COEFF_2: float = 2
-    LEN_STEP: float = 1.38
+    SWM_COEFF_1: float = 1.1  # Первый коэффициент
+    SWM_COEFF_2: float = 2    # Второй коэффициент
+    LEN_STEP: float = 1.38    # Длина маха при заплыве
 
     def __init__(self,
-                 action,
-                 duration,
-                 weight,
-                 length_pool,
-                 count_pool
+                 action,       # Действие
+                 duration,     # Длительность
+                 weight,       # Вес
+                 length_pool,  # Длина бассейна
+                 count_pool    # Cколько заплывов в бассейне
                  ) -> None:
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
