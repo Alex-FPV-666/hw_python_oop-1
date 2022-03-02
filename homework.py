@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import Sequence, Dict, Tuple, List, Type
 
 
@@ -11,13 +11,16 @@ class InfoMessage:
     distance: float     # Расстояние
     speed: float        # Скорость
     calories: float     # Килокалории
+    message: str = ('Тип тренировки: {training_type}; '
+                    'Длительность: {duration:.3f} ч.; '
+                    'Дистанция: {distance:.3f} км; '
+                    'Ср. скорость: {speed:.3f} км/ч; '
+                    'Потрачено ккал: {calories:.3f}.')
 
     def get_message(self) -> str:
-        return (f'Тип тренировки: {self.training_type}; '
-                f'Длительность: {self.duration:.3f} ч.; '
-                f'Дистанция: {self.distance:.3f} км; '
-                f'Ср. скорость: {self.speed:.3f} км/ч; '
-                f'Потрачено ккал: {self.calories:.3f}.')
+        # Реализовать через оператор format, самое то
+        # для работы с dataclass
+        return self.message.format(**asdict(self))
 
 
 class Training:
@@ -46,7 +49,7 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        raise NotImplementedError()
+        raise NotImplementedError('Определить get_spent_calories')
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -145,7 +148,7 @@ def read_package(workout_type: str, data: Sequence[int]) -> Training:
         'WLK': SportsWalking
     }
     if workout_type not in training_name:
-        raise NotImplementedError()
+        raise NotImplementedError('Возможно выкинуть исключение')
 
     return training_name[workout_type](*data)
 
