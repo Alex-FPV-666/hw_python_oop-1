@@ -18,8 +18,6 @@ class InfoMessage:
                     'Потрачено ккал: {calories:.3f}.')
 
     def get_message(self) -> str:
-        # Реализовать через оператор format, самое то
-        # для работы с dataclass
         return self.message.format(**asdict(self))
 
 
